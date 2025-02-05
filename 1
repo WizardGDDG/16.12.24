@@ -1,0 +1,54 @@
+#include <iostream>
+
+void swapEvenOdd(int arr[], int size) 
+{
+    if (size <= 1) {
+        return; 
+    }
+
+    int *evenPtr = arr;       
+    int *oddPtr = arr + 1;   
+
+    
+    while (oddPtr < arr + size) 
+    {
+        
+        int temp = *evenPtr;
+        *evenPtr = *oddPtr;
+        *oddPtr = temp;
+
+        
+        evenPtr += 2;
+        oddPtr += 2;
+
+        
+        if (evenPtr >= arr + size) 
+        {
+            break;
+        }
+    }
+}
+
+int main() 
+{
+    int arr[] = {1, 2, 3, 4, 5, 6};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    std::cout << "Исходный массив: ";
+    for (int i = 0; i < size; ++i) 
+    {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    swapEvenOdd(arr, size);
+
+    std::cout << "Измененный массив: ";
+    for (int i = 0; i < size; ++i) 
+    {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
