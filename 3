@@ -1,62 +1,38 @@
 #include <iostream>
-#include <algorithm>
-#include <vector>
+using namespace std;
 
-
-void printArray(int* arr, int size, std::ostream* os) 
+void Rrr(int arr[],int arr2[],int size)
 {
-    *os << ""; 
-    for (int i = 0; i < size; ++i) 
+    int arr3[12];
+    int* pa;
+    int* pb;
+    for (int i = 0; i < size; i++)
     {
-        *os << *(arr + i) << " "; 
+        pa = &arr[i];
+        arr3[i] = *pa;
+        if (i == 5)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                pb = &arr2[j];
+                arr3[i+1] = *pb;
+                i++;
+            }
+            
+        }
     }
-    *os << std::endl;
-}
-
-
-int* setOperations(int A[], int n, int B[], int m, int opType, int* resultSize) 
-{
-    std::vector<int> resultVec;
-    if (opType == 0) 
-    { 
-        std::copy(A, A + n, std::back_inserter(resultVec));
-        std::copy(B, B + m, std::back_inserter(resultVec));
-    } else if (opType == 1) 
-    { 
-        std::set_intersection(A, A + n, B, B + m, std::back_inserter(resultVec));
-    } else 
-    { 
-        std::set_difference(A, A + n, B, B + m, std::back_inserter(resultVec));
+    for (int i = 0; i < 12; i++)
+    {
+        cout << arr3[i] << " ";
     }
-    int* resultArr = new int[resultVec.size()];
-    std::copy(resultVec.begin(), resultVec.end(), resultArr);
-    *resultSize = resultVec.size();
-    return resultArr;
 }
-
-int main() 
+int main()
 {
-    int A[] = {1, 2, 3, 4, 5, 6}, B[] = {4, 5, 6, 7, 8, 9};
-    int n = sizeof(A) / sizeof(A[0]), m = sizeof(B) / sizeof(B[0]);
-    std::sort(A, A + n); std::sort(B, B + m);
-
-    int unionSize, intersectionSize, differenceABSize, differenceBASize;
-    int* unionArr = setOperations(A, n, B, m, 0, &unionSize); 
-    int* intersectionArr = setOperations(A, n, B, m, 1, &intersectionSize); 
-    int* differenceABArr = setOperations(A, n, B, m, 2, &differenceABSize); 
-    int* differenceBAArr = setOperations(B, m, A, n, 2, &differenceBASize); 
-
-    std::cout << "Объединение A и B: "; printArray(unionArr, unionSize, &std::cout); delete[] unionArr;
-    std::cout << "Общие элементы A и B: "; printArray(intersectionArr, intersectionSize, &std::cout); delete[] intersectionArr;
-    std::cout << "Элементы A, не входящие в B: "; printArray(differenceABArr, differenceABSize, &std::cout); delete[] differenceABArr;
-    std::cout << "Элементы B, не входящие в A: "; printArray(differenceBAArr, differenceBASize, &std::cout); delete[] differenceBAArr;
-
+    setlocale(LC_ALL, "rus");
+    int arr[6] = { 0,1,2,3,4,5 };
+    int arr2[6] = { 6,7,8,9,10,11 };
+    int size = sizeof(arr) / sizeof(arr[0]);
+    Rrr(arr,arr2,size);
     
-    int symmetricDifferenceSize = differenceABSize + differenceBASize;
-    int* symmetricDifferenceArr = new int[symmetricDifferenceSize];
-    std::copy(differenceABArr, differenceABArr + differenceABSize, symmetricDifferenceArr);
-    std::copy(differenceBAArr, differenceBAArr + differenceBASize, symmetricDifferenceArr + differenceABSize);
-    std::cout << "Симметрическая разность A и B: "; printArray(symmetricDifferenceArr, symmetricDifferenceSize, &std::cout); delete[] symmetricDifferenceArr;
-
-    return 0;
+    
 }
